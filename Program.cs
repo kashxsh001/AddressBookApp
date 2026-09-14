@@ -14,7 +14,8 @@ class Program
             Console.WriteLine("---------ADDRESS BOOK MENU----------");
             Console.WriteLine("1. Add Contact");
             Console.WriteLine("2. Edit Contact");
-            Console.WriteLine("3. Show All Contacts");
+            Console.WriteLine("3. Delete Contact");
+            Console.WriteLine("4. Show All Contacts");
             Console.WriteLine("0. Exit");
             Console.WriteLine();
             Console.WriteLine("Enter the number:");
@@ -51,10 +52,18 @@ class Program
             }
             if (input == 3)
             {
+                Console.WriteLine("Enter Your First Name: ");
+                string firstName = Console.ReadLine()!;
+                Console.WriteLine("Enter Your Last Name: ");
+                string lastName = Console.ReadLine()!;
+                AddressBook.DeleteContact(firstName, lastName);
+            }
+            if (input == 4)
+            {
                 AddressBook.PrintAll();
             }
 
-            if(input == 0)
+            if (input == 0)
             {
                 return;
             }
