@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AddressBookApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eb05983c0f8072615a0ed3e3ffecc8a95e2e2f7b")]
 [assembly: System.Reflection.AssemblyProductAttribute("AddressBookApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AddressBookApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
