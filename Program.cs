@@ -7,7 +7,6 @@ class Program
     static void Main(string[] args)
     {
         AddressBookMain manager = new AddressBookMain();
-       
 
         AddressBook currentBook = null;
 
@@ -28,6 +27,7 @@ class Program
             Console.WriteLine("10. View by City/State");
             Console.WriteLine("11. Count by City/State");
             Console.WriteLine("12. Sort by Name");
+            Console.WriteLine("13.Sort by City / State / Zip");
             Console.WriteLine("0. Exit");
             Console.WriteLine();
             Console.WriteLine("Enter the number:");
@@ -191,6 +191,31 @@ class Program
             if (input == 12)
             {
                 manager.SortByName();
+            }
+            if (input == 13) 
+            {
+                Console.WriteLine("Sort by:");
+                Console.WriteLine("1. City");
+                Console.WriteLine("2. State");
+                Console.WriteLine("3. Zip");
+                Console.Write("> ");
+                string sortChoice = Console.ReadLine()!;
+
+                switch (sortChoice)
+                {
+                    case "1":
+                        currentBook.SortByCity();
+                        break;
+                    case "2":
+                        currentBook.SortByState();
+                        break;
+                    case "3":
+                        currentBook.SortByZip();
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice.");
+                        break;
+                }
             }
         }
     }

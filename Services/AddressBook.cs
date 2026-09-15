@@ -152,8 +152,33 @@ namespace AddressBookApp.Services
             contacts.Remove(contact);
             Console.WriteLine("Contact deleted.");
         }
+        public void SortByCity()
+        {
+            var sorted = contacts.OrderBy(c => c.City);
+            foreach (var c in sorted)
+            {
+                Console.WriteLine(c);
+            }
+        }
 
-      
+        public void SortByState()
+        {
+            var sorted = contacts.OrderBy(c => c.State);
+            foreach (var c in sorted)
+            {
+                Console.WriteLine(c);
+            }
+        }
+
+        public void SortByZip()
+        {
+            var sorted = contacts.OrderBy(c => c.Zip);
+            foreach (var c in sorted)
+            {
+                Console.WriteLine(c);
+            }
+        }
+
         public void PrintAll()
         {
             foreach (Contact c in contacts) { 
