@@ -23,6 +23,7 @@ class Program
             Console.WriteLine("7. Total Contact Count (All Books)");
             Console.WriteLine("8. Search by City");
             Console.WriteLine("9. Search by State");
+            Console.WriteLine("10. View by City/State");
             Console.WriteLine("0. Exit");
             Console.WriteLine();
             Console.WriteLine("Enter the number:");
@@ -172,6 +173,11 @@ class Program
                 {
                     Console.WriteLine(c.ToString());
                 }
+            }
+
+            if (input == 10)
+            {
+                manager.ViewByCityOrState();
             }
         }
     }
