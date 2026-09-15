@@ -7,7 +7,20 @@ class Program
     static void Main(string[] args)
     {
         AddressBookMain manager = new AddressBookMain();
-        AddressBook currentBook = null;
+        AddressBook personal = new AddressBook("PersonalWork");
+        personal.AddContact(new Contact("John", "Doe", "12 MG Road", "Pune", "Maharashtra", "411001", "9876543210", "john.doe@mail.com"));
+        personal.AddContact(new Contact("Alice", "Smith", "45 FC Road", "Pune", "Maharashtra", "411002", "9123456780", "alice.smith@mail.com"));
+        personal.AddContact(new Contact("Rohit", "Verma", "78 Park Street", "Mumbai", "Maharashtra", "400001", "9988776655", "rohit.verma@mail.com"));
+
+        AddressBook work = new AddressBook("WorkBook");
+        work.AddContact(new Contact("Priya", "Nair", "23 Marine Drive", "Mumbai", "Maharashtra", "400020", "9090909090", "priya.nair@mail.com"));
+        work.AddContact(new Contact("Kabir", "Khan", "9 Lake View", "Delhi", "Delhi", "110001", "9345678901", "kabir.khan@mail.com"));
+        work.AddContact(new Contact("Sneha", "Gaba", "56 CP Market", "Delhi", "Delhi", "110002", "9871234560", "sneha.gaba@mail.com"));
+
+        manager.AddAddressBook(personal);
+        manager.AddAddressBook(work);
+
+        AddressBook currentBook = personal;
 
 
         while (true)
@@ -24,6 +37,7 @@ class Program
             Console.WriteLine("8. Search by City");
             Console.WriteLine("9. Search by State");
             Console.WriteLine("10. View by City/State");
+            Console.WriteLine("11. Count by City/State");
             Console.WriteLine("0. Exit");
             Console.WriteLine();
             Console.WriteLine("Enter the number:");
@@ -178,6 +192,11 @@ class Program
             if (input == 10)
             {
                 manager.ViewByCityOrState();
+            }
+
+            if (input == 11)
+            {
+                manager.GetCountByCityOrState();
             }
         }
     }

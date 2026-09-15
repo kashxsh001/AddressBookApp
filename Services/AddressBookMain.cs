@@ -1,4 +1,5 @@
 ﻿using AddressBookApp.Models;
+using AddressBookApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -63,5 +64,24 @@ namespace AddressBookApp.Services
                 Console.WriteLine("  " + string.Join(", ", names));
             }
         }
+        public void GetCountByCityOrState()
+        {
+            var allContacts = books.SelectMany(b => b.Contacts).ToList();
+
+            var byCity = allContacts
+                .GroupBy(c => c.City)
+                .Select(g => new { City = g.Key, Count = g.Count() });
+
+            var byState = allContacts
+                .GroupBy(c => c.State)
+                .Select(g => new { State = g.Key, Count = g.Count() });
+
+            string cityLine = string.Join(", ", byCity.Select(x => $"{x.City} = {x.Count}"));
+            string stateLine = string.Join(", ", byState.Select(x => $"{x.State} = {x.Count}"));
+
+            Console.WriteLine($"By City: {cityLine}");
+            Console.WriteLine($"By State: {stateLine}");
+        }
+
     }
 }
