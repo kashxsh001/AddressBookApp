@@ -9,6 +9,7 @@ class Program
         AddressBookMain manager = new AddressBookMain();
         AddressBook currentBook = null;
 
+
         while (true)
         {
             Console.WriteLine("---------ADDRESS BOOK MENU----------");
@@ -20,12 +21,14 @@ class Program
             Console.WriteLine("5. Create New Address Book");
             Console.WriteLine("6. Switch Address Book");
             Console.WriteLine("7. Total Contact Count (All Books)");
+            Console.WriteLine("8. Search by City");
+            Console.WriteLine("9. Search by State");
             Console.WriteLine("0. Exit");
             Console.WriteLine();
             Console.WriteLine("Enter the number:");
             int input = Convert.ToInt32(Console.ReadLine());
 
-            if (input == 5) // Create new book
+            if (input == 5) 
             {
                 Console.Write("Enter a name for this address book: ");
                 string name = Console.ReadLine()!;
@@ -46,7 +49,7 @@ class Program
                 continue;
             }
 
-            if (input == 6) // Switch book
+            if (input == 6) 
             {
                 if (manager.Books.Count == 0)
                 {
@@ -76,7 +79,7 @@ class Program
                 continue;
             }
 
-            if (input == 7) // Total across all books
+            if (input == 7) 
             {
                 Console.WriteLine($"Total contacts in all address books: {manager.GetTotalContactCount()}");
                 continue;
@@ -137,6 +140,38 @@ class Program
             if (input == 4)
             {
                 currentBook.PrintAll();
+            }
+
+            if (input == 8)
+            {
+                string city = Console.ReadLine()!;
+                var results = manager.SearchByCity(city);
+                if (results.Count == 0)
+                {
+                    Console.WriteLine("No contacts found");
+                    return;
+                }
+                Console.WriteLine($"Found {results.Count} contacts(s)");
+                foreach(Contact c in results)
+                {
+                    Console.WriteLine(c.ToString());
+                }
+            }
+
+            if (input == 9)
+            {
+                string state = Console.ReadLine()!;
+                var results = manager.SearchByState(state);
+                if (results.Count == 0)
+                {
+                    Console.WriteLine("No contacts found");
+                    return;
+                }
+                Console.WriteLine($"Found {results.Count} contacts(s)");
+                foreach (Contact c in results)
+                {
+                    Console.WriteLine(c.ToString());
+                }
             }
         }
     }

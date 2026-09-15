@@ -153,6 +153,7 @@ namespace AddressBookApp.Services
             Console.WriteLine("Contact deleted.");
         }
 
+      
         public void PrintAll()
         {
             foreach (Contact c in contacts) { 
