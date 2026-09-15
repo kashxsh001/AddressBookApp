@@ -9,10 +9,16 @@ namespace AddressBookApp.Services
 {
     public class AddressBook
     {
-        private static List<Contact> contacts = new();
+        public string Name { get; set; }
+        private List<Contact> contacts = new();
         public IReadOnlyList<Contact> Contacts => contacts;
 
-        public static void AddContact(Contact c)
+        public AddressBook(string name)
+        {
+            Name = name;
+        }
+
+        public void AddContact(Contact c)
         {
             try
             {
@@ -25,7 +31,7 @@ namespace AddressBookApp.Services
                 Console.WriteLine(ex.Message);
             }
         }
-        public static void EditContact(string firstName, string lastName)
+        public void EditContact(string firstName, string lastName)
         {
             Contact? contact = contacts.FirstOrDefault(c =>c.FirstName == firstName && c.LastName == lastName);
 
@@ -129,7 +135,7 @@ namespace AddressBookApp.Services
             Console.WriteLine(contact);
         }
 
-        public static void DeleteContact(string firstName,string lastName)
+        public void DeleteContact(string firstName,string lastName)
         {
             Contact? contact = contacts.FirstOrDefault(c => c.FirstName == firstName && c.LastName == lastName);
             if(contact == null)
@@ -141,7 +147,7 @@ namespace AddressBookApp.Services
             Console.WriteLine("Contact deleted.");
         }
 
-        public static void PrintAll()
+        public void PrintAll()
         {
             foreach (Contact c in contacts) { 
                 Console.WriteLine(c.ToString());
