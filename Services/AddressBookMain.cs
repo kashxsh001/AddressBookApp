@@ -83,5 +83,17 @@ namespace AddressBookApp.Services
             Console.WriteLine($"By State: {stateLine}");
         }
 
+        public void SortByName()
+        {
+            var allContacts = books.SelectMany(b => b.Contacts).ToList();
+            var byName = allContacts.OrderBy(c => c.FirstName)
+                                    .ThenBy(c => c.LastName)
+                                    .ToList();
+            foreach(var c in byName)
+            {
+                Console.WriteLine(c);
+            }
+
+        }
     }
 }
