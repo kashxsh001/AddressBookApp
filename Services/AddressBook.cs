@@ -18,28 +18,27 @@ namespace AddressBookApp.Services
             Name = name;
         }
 
-        public void AddContact(Contact c)
+        public bool AddContact(Contact contact)
         {
-            bool duplicateExist = contacts.Any(existing => existing.FirstName == c.FirstName && existing.LastName == c.LastName);
-            if (duplicateExist)
+            ContactValidator.Validate(contact);
+
+            if (contacts.Any(existing =>
+                existing.FirstName.Equals(contact.FirstName,
+                    StringComparison.OrdinalIgnoreCase) &&
+                existing.LastName.Equals(contact.LastName,
+                    StringComparison.OrdinalIgnoreCase)))
             {
-                Console.WriteLine($"Contact {c.FirstName}{c.LastName} already exist. Duplicate not added");
-                return;
+                return false;
             }
-            try
-            {
-                ContactValidator.Validate(c);
-                contacts.Add(c);
-                Console.WriteLine("Contact Added Successfully");
-            }
-            catch(InvalidContactException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+
+            contacts.Add(contact);
+            return true;
         }
         public void EditContact(string firstName, string lastName)
         {
-            Contact? contact = contacts.FirstOrDefault(c =>c.FirstName == firstName && c.LastName == lastName);
+            Contact? contact = contacts.FirstOrDefault(c =>
+        c.FirstName.Equals(firstName, StringComparison.OrdinalIgnoreCase) &&
+        c.LastName.Equals(lastName, StringComparison.OrdinalIgnoreCase));
 
             if (contact == null)
             {
@@ -143,8 +142,10 @@ namespace AddressBookApp.Services
 
         public void DeleteContact(string firstName,string lastName)
         {
-            Contact? contact = contacts.FirstOrDefault(c => c.FirstName == firstName && c.LastName == lastName);
-            if(contact == null)
+            Contact? contact = contacts.FirstOrDefault(c =>
+        c.FirstName.Equals(firstName, StringComparison.OrdinalIgnoreCase) &&
+        c.LastName.Equals(lastName, StringComparison.OrdinalIgnoreCase));
+            if (contact == null)
             {
                 Console.WriteLine("Contact not found");
                 return;

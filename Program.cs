@@ -1,4 +1,5 @@
-﻿using AddressBookApp.Models;
+﻿using AddressBookApp.CustomException;
+using AddressBookApp.Models;
 using AddressBookApp.Services;
 using System;
 
@@ -6,9 +7,9 @@ class Program
 {
     static void Main(string[] args)
     {
-        AddressBookMain manager = new AddressBookMain();
+        AddressBookMain? manager = new AddressBookMain();
 
-        AddressBook currentBook = null;
+        AddressBook? currentBook = null;
 
 
         while (true)
@@ -31,9 +32,14 @@ class Program
             Console.WriteLine("0. Exit");
             Console.WriteLine();
             Console.WriteLine("Enter the number:");
-            int input = Convert.ToInt32(Console.ReadLine());
+            string? inputRaw = Console.ReadLine();
+            if (!int.TryParse(inputRaw, out int input))
+            {
+                Console.WriteLine("Please enter a valid number.");
+                continue;
+            }
 
-            if (input == 5) 
+            if (input == 5)
             {
                 Console.Write("Enter a name for this address book: ");
                 string name = Console.ReadLine()!;
@@ -54,7 +60,7 @@ class Program
                 continue;
             }
 
-            if (input == 6) 
+            if (input == 6)
             {
                 if (manager.Books.Count == 0)
                 {
@@ -84,16 +90,12 @@ class Program
                 continue;
             }
 
-            if (input == 7) 
+            if (input == 7)
             {
                 Console.WriteLine($"Total contacts in all address books: {manager.GetTotalContactCount()}");
                 continue;
             }
 
-            if (input == 0)
-            {
-                return;
-            }
 
             if (currentBook == null)
             {
@@ -120,8 +122,18 @@ class Program
                 Console.WriteLine("Enter Your Email: ");
                 string Email = Console.ReadLine()!;
 
-                Contact c = new Contact(FirstName, LastName, Address, City, State, Zip, Phone, Email);
-                currentBook.AddContact(c);
+                Contact contact = new Contact(FirstName, LastName, Address, City, State, Zip, Phone, Email);
+                try
+                {
+                    if (currentBook.AddContact(contact))
+                        Console.WriteLine("Contact added successfully.");
+                    else
+                        Console.WriteLine("Duplicate contact.");
+                }
+                catch (InvalidContactException ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
             }
 
             if (input == 2)
@@ -147,14 +159,17 @@ class Program
                 currentBook.PrintAll();
             }
 
+        
+
             if (input == 8)
             {
+                Console.Write("Enter city to search: ");
                 string city = Console.ReadLine()!;
                 var results = manager.SearchByCity(city);
                 if (results.Count == 0)
                 {
                     Console.WriteLine("No contacts found");
-                    return;
+                    continue;
                 }
                 Console.WriteLine($"Found {results.Count} contacts(s)");
                 foreach(Contact c in results)
@@ -165,12 +180,13 @@ class Program
 
             if (input == 9)
             {
+                Console.Write("Enter state to search: ");
                 string state = Console.ReadLine()!;
                 var results = manager.SearchByState(state);
                 if (results.Count == 0)
                 {
                     Console.WriteLine("No contacts found");
-                    return;
+                    continue;
                 }
                 Console.WriteLine($"Found {results.Count} contacts(s)");
                 foreach (Contact c in results)
@@ -216,6 +232,11 @@ class Program
                         Console.WriteLine("Invalid choice.");
                         break;
                 }
+            }
+
+            if (input == 0)
+            {
+                return;
             }
         }
     }

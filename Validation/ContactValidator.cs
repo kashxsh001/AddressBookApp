@@ -26,6 +26,12 @@ namespace AddressBookApp.Validation
                 throw new InvalidContactException("Address should be of minimum 4 characters.");
             }
 
+            if (!Regex.IsMatch(c.City, @"^.{4,}$"))
+                throw new InvalidContactException("City should be of minimum 4 characters.");
+
+            if (!Regex.IsMatch(c.State, @"^.{4,}$"))
+                throw new InvalidContactException("State should be of minimum 4 characters.");
+
             if (!Regex.IsMatch(c.Zip, @"^[0-9]{6}$"))
             {
                 throw new InvalidContactException("Zip Code must be of 6 digits.");
@@ -34,7 +40,7 @@ namespace AddressBookApp.Validation
             {
                 throw new InvalidContactException("Phone number must be of 10 digits.");
             }
-            if (!Regex.IsMatch(c.Email, @"^[A-Za-z0-9.]+@[A-Za-z0-9.-]+\.[a-zA-z]{2,}$"))
+            if (!Regex.IsMatch(c.Email, @"^[A-Za-z0-9.]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"))
             {
                 throw new InvalidContactException("Invalid Email.");
             }
